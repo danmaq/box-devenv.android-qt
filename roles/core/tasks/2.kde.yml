@@ -1,10 +1,9 @@
 ---
 - name: Install KDE Plasma Desktop environment
-  shell: zypper in -y -t pattern kde kde_plasma
+  shell: zypper in -l -y -t pattern kde kde_plasma
   become: yes
   register: zypper_desktop
   changed_when: '"Nothing to do." not in zypper_desktop.stdout'
-  ignore_errors: true
 
 - name: Install SDDM
   zypper:
