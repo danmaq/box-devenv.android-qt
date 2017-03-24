@@ -16,13 +16,4 @@
   - package: yasm
   - package: libSDL2-devel
 
-- name: Cleanup zypper
-  shell: zypper clean
-  become: yes
-  changed_when: false
-
-- name: Cleanup snapper
-  shell: snapper delete 2-100000
-  become: yes
-  ignore_errors: true
-  changed_when: false
+- include: _clean.yml

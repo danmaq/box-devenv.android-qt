@@ -17,9 +17,21 @@
   when: android_sdk_tgz is defined and not android_sdk_tgz.stat.exists
 
 - name: Deploy Android SDK
-  shell: tar zxf /vagrant/tmp/android-sdk_r24.4.1-linux.tgz
+  shell: tar zxf /vagrant/.tmp/android-sdk_r24.4.1-linux.tgz
   args:
     chdir: ~/
   when: not android_sdk_deploy.stat.exists
 
-# TODO: Additional Packages
+- name: Detect installed Android SDK 21
+  stat: 
+    path: ~/android-sdk-linux/platforms/android-21
+  register: android_sdk_21
+
+- name: Install Android SDK 21
+  shell: echo y | ~/android-sdk-linux/tools/android update sdk -s -u -a -t tools,platform-tools,build-tools-21.1.2,android-21,source-21,extra-android-m2repository,extra-google-m2repository
+  when: not android_sdk_21.stat.exists
+  notify:
+  - Request reload VM
+  - Abort for Reload VM
+
+- include: _clean.yml

@@ -1,0 +1,10 @@
+---
+- name: Request reload VM
+  file:
+    path: /vagrant/.tmp/.reboot
+    state: touch
+    mode: 0666
+
+- name: Abort for Reload VM
+  fail:
+    msg: "Since restart is necessary, playbook forcibly terminates."

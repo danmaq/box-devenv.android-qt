@@ -20,13 +20,4 @@
   shell: /vagrant/.tmp/qt-opensource-linux-x64-android-5.6.2.run --script /vagrant/src/qt.silent-install-helper.js --platform minimal
   when: not qt_installed.stat.exists
 
-- name: Cleanup zypper
-  shell: zypper clean
-  become: yes
-  changed_when: false
-
-- name: Cleanup snapper
-  shell: snapper delete 2-100000
-  become: yes
-  ignore_errors: true
-  changed_when: false
+- include: _clean.yml

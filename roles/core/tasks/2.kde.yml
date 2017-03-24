@@ -55,13 +55,4 @@
   - regexp: '^DISPLAYMANAGER_PASSWORD_LESS_LOGIN=".*"'
     line: DISPLAYMANAGER_PASSWORD_LESS_LOGIN="yes"
 
-- name: Cleanup zypper
-  shell: zypper clean
-  become: yes
-  changed_when: false
-
-- name: Cleanup snapper
-  shell: snapper delete 2-100000
-  become: yes
-  ignore_errors: true
-  changed_when: false
+- include: _clean.yml
