@@ -1,0 +1,64 @@
+---
+- name: Install KDE Plasma Desktop environment
+  shell: zypper in -y -t pattern kde kde_plasma
+  become: yes
+  register: zypper_desktop
+  changed_when: '"Nothing to do." not in zypper_desktop.stdout'
+  ignore_errors: true
+
+- name: Install SDDM
+  zypper:
+    name: 'sddm'
+    state: latest
+  become: yes
+
+- name: Correct default runlevel.
+  command: systemctl get-default
+  register: runlevel
+
+- name: Set default runlevel.
+  command: systemctl set-default graphical.target
+  become: yes
+  when: runlevel.stdout != 'graphical.target'
+  notify:
+  - Request reload VM
+  - Abort for Reload VM
+
+- name: Correct isActive runlevel.
+  command: systemctl is-active graphical.target
+  register: graphical
+  changed_when: false
+  ignore_errors: true
+
+- name: Set isolate runlevel.
+  command: systemctl isolate graphical.target
+  become: yes
+  when: graphical.stdout != 'active'
+  notify:
+  - Request reload VM
+  - Abort for Reload VM
+
+# - name: Set autologin.
+#   lineinfile:
+#     dest: /etc/sysconfig/displaymanager
+#     regexp: '{{ item.regexp }}'
+#     line: '{{ item.line }}'
+#   become: yes
+#   notify:
+#   - Request reload VM
+#   - Abort for Reload VM
+#   with_items:
+#   - regexp: '^DISPLAYMANAGER_AUTOLOGIN=".*"'
+#     line: DISPLAYMANAGER_AUTOLOGIN="vagrant"
+#   - regexp: '^DISPLAYMANAGER="sddm"'
+#     line: DISPLAYMANAGER="sddm"
+
+- name: Cleanup zypper
+  shell: zypper clean
+  become: yes
+  changed_when: false
+
+- name: Cleanup snapper
+  shell: snapper delete 2-100000
+  become: yes
+  changed_when: false

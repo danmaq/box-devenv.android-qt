@@ -1,0 +1,3 @@
+---
+- include: 1.update.yml
+- include: 2.kde.yml

@@ -1,0 +1,5 @@
+---
+- name: Vagrant box for Android develop environment using Qt.
+  hosts: all
+  roles:
+    - core

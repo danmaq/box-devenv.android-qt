@@ -1,0 +1,16 @@
+#!/bin/sh
+
+cd $(cd $(dirname $0); pwd)
+LC_TEMP=.tmp
+REBOOT=${LC_TEMP}/.reboot
+[ ! -d ${LC_TEMP} ] && mkdir ${LC_TEMP}
+[ -f ${REBOOT} ] && rm ${REBOOT}
+
+vagrant up --provision
+
+while [ -f ${REBOOT} ]
+do
+    echo "Found ${REBOOT}. reloading..."
+    rm ${REBOOT}
+    vagrant reload --provision
+done

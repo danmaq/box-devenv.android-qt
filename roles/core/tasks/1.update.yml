@@ -1,0 +1,36 @@
+---
+- name: Install security patches 1/3
+  shell: zypper patch -y
+  become: yes
+  register: zypper_patch1
+  changed_when: '"Nothing to do." not in zypper_patch1.stdout'
+  ignore_errors: true
+  notify:
+  - Request reload VM
+  - Abort for Reload VM
+
+- name: Install security patches 2/3
+  shell: zypper patch -y
+  become: yes
+  register: zypper_patch2
+  changed_when: '"Nothing to do." not in zypper_patch2.stdout'
+  ignore_errors: true
+
+- name: Update installed packages.
+  zypper:
+    name: '*'
+    state: latest
+  become: yes
+
+- name: Cleanup zypper
+  shell: zypper clean
+  become: yes
+  changed_when: false
+
+- name: Cleanup snapper
+  shell: snapper delete 2-100000
+  become: yes
+  changed_when: false
+
+- name: VM Reload if require
+  meta: flush_handlers
