@@ -8,6 +8,15 @@ Vagrant.configure("2") do |config|
     vb.gui = true
     vb.linked_clone = true
     vb.memory = "1536"
+    vb.customize [
+      "modifyvm", :id,
+      "--vram", "128",
+      "--ioapic", "on",
+      "--usb", "on",
+      "--usbehci", "on",
+      "--accelerate3d", "on",
+      "--accelerate2dvideo", "off"
+    ]
     # Windows / macOS の場合、サウンドを有効にする
     if (/cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM) != nil
       vb.customize [

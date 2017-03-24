@@ -1,0 +1,3 @@
+---
+- include: 1.ndk.yml
+- include: 2.sdk.yml

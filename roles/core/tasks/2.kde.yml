@@ -14,6 +14,7 @@
 - name: Correct default runlevel.
   command: systemctl get-default
   register: runlevel
+  changed_when: false
 
 - name: Set default runlevel.
   command: systemctl set-default graphical.target
@@ -37,20 +38,22 @@
   - Request reload VM
   - Abort for Reload VM
 
-# - name: Set autologin.
-#   lineinfile:
-#     dest: /etc/sysconfig/displaymanager
-#     regexp: '{{ item.regexp }}'
-#     line: '{{ item.line }}'
-#   become: yes
-#   notify:
-#   - Request reload VM
-#   - Abort for Reload VM
-#   with_items:
-#   - regexp: '^DISPLAYMANAGER_AUTOLOGIN=".*"'
-#     line: DISPLAYMANAGER_AUTOLOGIN="vagrant"
-#   - regexp: '^DISPLAYMANAGER="sddm"'
-#     line: DISPLAYMANAGER="sddm"
+- name: Set autologin.
+  lineinfile:
+    dest: /etc/sysconfig/displaymanager
+    regexp: '{{ item.regexp }}'
+    line: '{{ item.line }}'
+  become: yes
+  notify:
+  - Request reload VM
+  - Abort for Reload VM
+  with_items:
+  - regexp: '^DISPLAYMANAGER_AUTOLOGIN=".*"'
+    line: DISPLAYMANAGER_AUTOLOGIN="vagrant"
+  - regexp: '^DISPLAYMANAGER="sddm"'
+    line: DISPLAYMANAGER="sddm"
+  - regexp: '^DISPLAYMANAGER_PASSWORD_LESS_LOGIN=".*"'
+    line: DISPLAYMANAGER_PASSWORD_LESS_LOGIN="yes"
 
 - name: Cleanup zypper
   shell: zypper clean
@@ -60,4 +63,5 @@
 - name: Cleanup snapper
   shell: snapper delete 2-100000
   become: yes
+  ignore_errors: true
   changed_when: false

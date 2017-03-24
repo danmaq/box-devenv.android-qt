@@ -3,3 +3,6 @@
   hosts: all
   roles:
     - core
+    - dev-base
+    - dev-qt
+    - dev-android

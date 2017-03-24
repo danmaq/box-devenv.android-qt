@@ -28,6 +28,7 @@
 - name: Cleanup snapper
   shell: snapper delete 2-100000
   become: yes
+  ignore_errors: true
   changed_when: false
 
 - name: VM Reload if require

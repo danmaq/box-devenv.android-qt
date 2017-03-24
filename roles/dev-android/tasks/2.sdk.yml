@@ -1,0 +1,25 @@
+---
+- name: Detect deployed Android SDK
+  stat: 
+    path: ~/android-sdk-linux
+  register: android_sdk_deploy
+
+- name: Detect downloaded Android SDK
+  stat: 
+    path: /vagrant/.tmp/android-sdk_r24.4.1-linux.tgz
+  register: android_sdk_tgz
+  when: not android_sdk_deploy.stat.exists
+
+- name: Download Android SDK
+  get_url:
+    url: https://dl.google.com/android/android-sdk_r24.4.1-linux.tgz
+    dest: /vagrant/.tmp/android-sdk_r24.4.1-linux.tgz
+  when: android_sdk_tgz is defined and not android_sdk_tgz.stat.exists
+
+- name: Deploy Android SDK
+  shell: tar zxf /vagrant/tmp/android-sdk_r24.4.1-linux.tgz
+  args:
+    chdir: ~/
+  when: not android_sdk_deploy.stat.exists
+
+# TODO: Additional Packages
