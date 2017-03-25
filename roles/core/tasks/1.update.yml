@@ -4,6 +4,7 @@
   become: yes
   register: zypper_patch1
   changed_when: '"Nothing to do." not in zypper_patch1.stdout'
+  ignore_errors: true
   notify:
   - Request reload VM
   - Abort for Reload VM
@@ -13,6 +14,7 @@
   become: yes
   register: zypper_patch2
   changed_when: '"Nothing to do." not in zypper_patch2.stdout'
+  ignore_errors: true
 
 - name: Update installed packages.
   zypper:
