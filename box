@@ -1,10 +1,8 @@
 #!/bin/sh
 
 cd $(cd $(dirname $0); pwd)
+vagrant destroy -f
 ./up
-
-read -n 1 -s -p 'Press any key to make box. If you want stop, press CTRL+C'
-
 vagrant package --base "Android dev-env using Qt"
 vagrant destroy -f
 

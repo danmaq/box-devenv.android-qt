@@ -20,15 +20,13 @@
   shell: /vagrant/.tmp/qt-opensource-linux-x64-android-5.6.2.run --script /vagrant/src/qt.silent-install-helper.js --platform minimal
   when: not qt_installed.stat.exists
 
-- name: Associate Qt Create and Android SDK/NDK
-  lineinfile:
-    dest: ~/.config/QtProject/QtCreator.ini
-    regexp: '{{ item.regexp }}'
-    line: '{{ item.line }}'
-  with_items:
-  - regexp: '^SDKLocation=.*'
-    line: SDKLocation=/home/vagrant/android-sdk-linux
-  - regexp: '^NDKLocation=.*'
-    line: NDKLocation=/home/vagrant/android-ndk-r10e
+- name: Find to Configure Qt Creator
+  stat: 
+    path: ~/.config/QtProject
+  register: qt_configure
+
+- name: Configure Qt Create and set Android SDK/NDK path
+  shell: tar jxf /vagrant/src/QtProject.tar.bz2
+  when: not qt_configure.stat.exists
 
 - include: _clean.yml
