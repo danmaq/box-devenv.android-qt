@@ -2,7 +2,7 @@
 
 cd $(cd $(dirname $0); pwd)
 lc_temp=.tmp
-reload=${lc_temp}/.reload
+reload=${lc_temp}/.reboot
 [ ! -d ${lc_temp} ] && mkdir ${lc_temp}
 [ -f ${reload} ] && rm ${reload}
 

@@ -15,6 +15,9 @@
   register: zypper_patch2
   changed_when: '"Nothing to do." not in zypper_patch2.stdout'
   ignore_errors: true
+  notify:
+  - Request reload VM
+  - Abort for Reload VM
 
 - name: Update installed packages.
   zypper:
