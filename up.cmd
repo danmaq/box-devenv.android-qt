@@ -7,11 +7,14 @@ set LC_TEMP=.tmp
 set REBOOT="%LC_TEMP%¥.reboot"
 if not exist %LC_TEMP% md %LC_TEMP%
 if exist %REBOOT% del %REBOOT%
-vagrant up --provision
+
+vagrant up --no-provision
+echo ### Reloading... ###
+vagrant reload --provision
 
 :PROVISION
 if not exist %REBOOT% goto PROVISION_COMPLETE
-echo ### REBOOT... ###
+echo ### Reloading... ###
 del %REBOOT%
 vagrant reload --provision
 goto PROVISION

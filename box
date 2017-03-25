@@ -1,0 +1,14 @@
+#!/bin/sh
+
+cd $(cd $(dirname $0); pwd)
+./up
+
+read -n 1 -s -p 'Press any key to make box. If you want stop, press CTRL+C'
+
+vagrant package --base "Android dev-env using Qt"
+vagrant destroy -f
+
+read -n 1 -s -p 'Press any key to re-import box. If you want stop, press CTRL+C'
+
+# re-import for test
+vagrant box add --name danmaq/openSUSE-42.1-x86_64-Android-Qt-dev-env package.box

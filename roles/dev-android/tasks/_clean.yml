@@ -2,7 +2,9 @@
 - name: Cleanup zypper
   shell: zypper clean
   become: yes
+  ignore_errors: true
   changed_when: false
+
 
 - name: Cleanup snapper
   shell: snapper delete 2-100000

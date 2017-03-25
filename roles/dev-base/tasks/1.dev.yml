@@ -1,0 +1,19 @@
+---
+- name: Install C/C++ standard develop environment.
+  shell: zypper in -l -y -t pattern devel_C_C++
+  become: yes
+  register: zypper_cppdev
+  changed_when: '"Nothing to do." not in zypper_cppdev.stdout'
+
+- name: Install others standard packages for develop.
+  zypper:
+    name: '{{ item.package }}'
+    state: latest
+  become: yes
+  with_items:
+  - package: git
+  - package: ant
+  - package: yasm
+  - package: libSDL2-devel
+
+- include: _clean.yml

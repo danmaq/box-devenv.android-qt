@@ -1,16 +1,18 @@
 #!/bin/sh
 
 cd $(cd $(dirname $0); pwd)
-LC_TEMP=.tmp
-REBOOT=${LC_TEMP}/.reboot
-[ ! -d ${LC_TEMP} ] && mkdir ${LC_TEMP}
-[ -f ${REBOOT} ] && rm ${REBOOT}
+lc_temp=.tmp
+reload=${lc_temp}/.reload
+[ ! -d ${lc_temp} ] && mkdir ${lc_temp}
+[ -f ${reload} ] && rm ${reload}
 
-vagrant up --provision
+vagrant up --no-provision
+echo 'Reloading...'
+vagrant reload --provision
 
-while [ -f ${REBOOT} ]
+while [ -f ${reload} ]
 do
-    echo "Found ${REBOOT}. reloading..."
-    rm ${REBOOT}
+    echo 'Reloading...'
+    rm ${reload}
     vagrant reload --provision
 done

@@ -4,7 +4,7 @@
 Vagrant.configure("2") do |config|
   config.vm.box = "https://atlas.hashicorp.com/opensuse/boxes/openSUSE-42.1-x86_64/versions/1.0.1/providers/virtualbox.box"
   config.vm.provider "virtualbox" do |vb|
-    vb.name = "Android devenv using Qt"
+    vb.name = "Android dev-env using Qt"
     vb.gui = true
     vb.linked_clone = true
     vb.memory = "1536"

@@ -34,4 +34,10 @@
   - Request reload VM
   - Abort for Reload VM
 
+- name: Set ANDROID_SDK_HOME
+  lineinfile:
+    dest: ~/.bashrc
+    regexp: '^export\sANDROID_HOME=~/android-sdk-linux'
+    line: 'export ANDROID_HOME=~/android-sdk-linux'
+
 - include: _clean.yml
