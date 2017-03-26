@@ -44,11 +44,7 @@ vagrant up
 2. Install Ansible. (via ansible_local)
 3. Run `zypper patch` and `zypper update`.
 4. Install KDE Desktop. (KDE Plasma 5.5.x)
-5. Install devel_C_C++ and some misc tools.
-    * git
-    * ant
-    * yasm
-    * libSDL2-devel
+5. Install pattern devel_C_C++.
 6. Install Android SDK NDK (r10e).
     * ~/android-ndk-r10e
 7. Install Android SDK (API 21).
