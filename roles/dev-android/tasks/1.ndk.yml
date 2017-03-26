@@ -1,0 +1,30 @@
+---
+- name: Detect deployed Android NDK
+  stat: 
+    path: ~/android-ndk-r10e
+  register: android_ndk_deploy
+
+- name: Detect downloaded NDK
+  stat: 
+    path: /vagrant/.tmp/android-ndk-r10e-linux-x86_64.bin
+  register: android_ndk_bin
+  when: not android_ndk_deploy.stat.exists
+
+- name: Download Android NDK
+  get_url:
+    url: http://dl.google.com/android/ndk/android-ndk-r10e-linux-x86_64.bin
+    dest: /vagrant/.tmp/android-ndk-r10e-linux-x86_64.bin
+    mode: 0755
+  when: android_ndk_bin is defined and not android_ndk_bin.stat.exists
+
+- name: Deploy Android NDK
+  shell: /vagrant/.tmp/android-ndk-r10e-linux-x86_64.bin
+  args:
+    chdir: ~/
+  when: not android_ndk_deploy.stat.exists
+
+- name: Set ANDROID_NDK_HOME
+  lineinfile:
+    dest: ~/.bashrc
+    regexp: '^export\sANDROID_NDK_HOME=~/android-ndk-r10e'
+    line: 'export ANDROID_NDK_HOME=~/android-ndk-r10e'

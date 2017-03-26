@@ -1,0 +1,33 @@
+---
+- name: Find to Qt Creator Installer
+  stat: 
+    path: /vagrant/.tmp/qt-opensource-linux-x64-android-5.6.2.run
+  register: qt_installer
+
+- name: Download Qt Creator Installer
+  get_url:
+    url: http://download.qt.io/official_releases/qt/5.6/5.6.2/qt-opensource-linux-x64-android-5.6.2.run
+    dest: /vagrant/.tmp/qt-opensource-linux-x64-android-5.6.2.run
+    mode: 0755
+  when: not qt_installer.stat.exists
+
+- name: Find to Installed Qt Creator
+  stat: 
+    path: ~/Qt5.6.2
+  register: qt_installed
+
+- name: Install Qt Creator
+  shell: /vagrant/.tmp/qt-opensource-linux-x64-android-5.6.2.run --script /vagrant/src/qt.silent-install-helper.js --platform minimal
+  when: not qt_installed.stat.exists
+
+- name: Find to Configure Qt Creator
+  stat: 
+    path: ~/.config/QtProject
+  register: qt_configure
+
+- name: Configure Qt Create and set Android SDK/NDK path
+  shell: tar jxf /vagrant/src/QtProject.tar.bz2
+  when: not qt_configure.stat.exists
+  args:
+    chdir: ~/.config/
+- include: _clean.yml
