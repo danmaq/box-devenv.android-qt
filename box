@@ -3,8 +3,10 @@
 cd $(cd $(dirname $0); pwd)
 vagrant destroy -f
 ./up
+
 vagrant ssh -c 'curl -f https://raw.githubusercontent.com/mitchellh/vagrant/master/keys/vagrant.pub -o ~/.ssh/authorized_keys'
-vagrant package --base "Android dev-env using Qt"
+vagrant halt
+vagrant package --base 'Android dev-env using Qt'
 vagrant destroy -f
 
 read -n 1 -s -p 'Press any key to re-import box. If you want stop, press CTRL+C'
