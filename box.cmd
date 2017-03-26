@@ -6,6 +6,7 @@ vagrant destroy -f
 
 vagrant ssh -c "curl -f https://raw.githubusercontent.com/mitchellh/vagrant/master/keys/vagrant.pub -o ~/.ssh/authorized_keys"
 vagrant halt
+if exist package.box del package.box
 vagrant package --base "Android dev-env using Qt"
 vagrant destroy -f
 
