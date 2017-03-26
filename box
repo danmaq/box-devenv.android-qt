@@ -3,6 +3,7 @@
 cd $(cd $(dirname $0); pwd)
 vagrant destroy -f
 ./up
+vagrant ssh -c 'curl -f https://raw.githubusercontent.com/mitchellh/vagrant/master/keys/vagrant.pub -o ~/.ssh/authorized_keys'
 vagrant package --base "Android dev-env using Qt"
 vagrant destroy -f
 
