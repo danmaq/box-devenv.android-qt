@@ -1,4 +1,4 @@
-# danmaq/openSUSE-42.1-x86_64-Android-Qt-dev-env
+# [danmaq/openSUSE-42.1-x86_64-Android-Qt-dev-env](https://atlas.hashicorp.com/danmaq/boxes/openSUSE-42.1-x86_64-Android-Qt-dev-env)
 
 Vagrant box for Android develop environment using Qt.
 
