@@ -28,5 +28,6 @@
 - name: Configure Qt Create and set Android SDK/NDK path
   shell: tar jxf /vagrant/src/QtProject.tar.bz2
   when: not qt_configure.stat.exists
-
+  args:
+    chdir: ~/.config/
 - include: _clean.yml

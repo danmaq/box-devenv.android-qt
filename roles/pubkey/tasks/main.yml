@@ -1,0 +1,6 @@
+---
+- name: Download Vagrant pubkey.
+  get_url:
+    url: https://raw.githubusercontent.com/mitchellh/vagrant/master/keys/vagrant.pub
+    dest: /vagrant/.ssh/authorized_keys
+    mode: 0600

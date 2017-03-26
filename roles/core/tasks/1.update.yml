@@ -23,6 +23,7 @@
   zypper:
     name: '*'
     state: latest
+  ignore_errors: true
   become: yes
 
 - include: _clean.yml
