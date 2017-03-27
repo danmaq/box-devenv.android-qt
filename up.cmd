@@ -4,18 +4,18 @@ cd "%~dp0"
 
 setlocal
 set LC_TEMP=.tmp
-set REBOOT="%LC_TEMP%¥.reboot"
-if not exist %LC_TEMP% md %LC_TEMP%
-if exist %REBOOT% del %REBOOT%
+set REBOOT=%LC_TEMP%\.reboot
+if not exist "%LC_TEMP%" md "%LC_TEMP%"
+if exist "%REBOOT%" del "%REBOOT%"
 
 vagrant up --no-provision
 echo ### Reloading... ###
 vagrant reload --provision
 
 :PROVISION
-if not exist %REBOOT% goto PROVISION_COMPLETE
+if not exist "%REBOOT%" goto PROVISION_COMPLETE
 echo ### Reloading... ###
-del %REBOOT%
+del "%REBOOT%"
 vagrant reload --provision
 goto PROVISION
 
