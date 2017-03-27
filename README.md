@@ -2,11 +2,11 @@
 
 Vagrant box for Android develop environment using Qt.
 
-* openSUSE Leap 42.1
+* openSUSE Leap 42.1 (from opensuse/openSUSE-42.1-x86_64 1.0.1)
+* patterns-openSUSE-devel_C_C++
 * Qt 5.6
 * Android SDK (API 21)
 * Android NDK r10e
-* other tools (see: Process overview)
 
 ## System requirements
 
@@ -46,8 +46,8 @@ vagrant up
 4. Install KDE Desktop. (KDE Plasma 5.5.x)
 5. Install pattern devel_C_C++.
 6. Install Android SDK NDK (r10e).
-    * ~/android-ndk-r10e
+    * dest: ~/android-ndk-r10e
 7. Install Android SDK (API 21).
-    * ~/android-sdk-linux
+    * dest: ~/android-sdk-linux
 8. Install Qt 5.6.2 for Android.
-    * ~/Qt5.6.2
+    * dest: ~/Qt5.6.2
