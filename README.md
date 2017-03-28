@@ -8,14 +8,6 @@ Vagrant box for Android develop environment using Qt.
 * Android SDK (API 21)
 * Android NDK r10e
 
-## System requirements
-
-* Virtualbox available PC
-    * macOS sierra
-        * should install Virtualbox and Vagrant manually.
-    * Windows 7 or higher version, __WITHOUT Hyper-V__.
-        * Virtualbox and Vagrant are auto install via Chocolatey. (run `setup.cmd`)
-
 ## Usage
 
 ```
@@ -24,6 +16,14 @@ cd dev
 vagrant init danmaq/openSUSE-42.1-x86_64-Android-Qt-dev-env
 vagrant up
 ```
+
+## System requirements
+
+* Virtualbox available PC
+    * macOS sierra
+        * should install Virtualbox and Vagrant manually.
+    * Windows 7 or higher version, __WITHOUT Hyper-V__.
+        * Virtualbox and Vagrant are auto install via Chocolatey. (run `setup.cmd`)
 
 ## Description
 
